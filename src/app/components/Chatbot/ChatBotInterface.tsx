@@ -34,15 +34,13 @@ function ChatBotInterface() {
             <img
               src={URL.createObjectURL(config.avatarImage)}
               alt="Avatar"
-              className="w-8 h-8 rounded-full object-cover"
+              className="w-8 h-8 rounded-full object-contain"
             />
           ) : (
             <Image
               src={chat}
               alt="avatar"
-              width={40}
-              height={40}
-              className="w-8 h-8 rounded-full"
+              className="w-8 h-8 rounded-full object-cover"
             />
           )}
           <p
@@ -63,16 +61,16 @@ function ChatBotInterface() {
             type="text"
             placeholder="Need help? Just type or say it"
             className="flex-1 focus:outline-none text-sm p-1 rounded-sm border-none"
-            style={{
-              fontFamily: selectedFont,
-              color: config.chatFontColor,
-            }}
+            // style={{
+            //   fontFamily: selectedFont,
+            //   color: config.chatFontColor,
+            // }}
           />
           <Mic className="w-4 h-4 text-gray-400 cursor-pointer" />
         </div>
       </div>
 
-      <div className="absolute -bottom-10 right-0">
+      <div className="absolute -bottom-[42px] right-0  object-fill">
         {config.launcherImage ? (
           <img
             src={URL.createObjectURL(config.launcherImage)}

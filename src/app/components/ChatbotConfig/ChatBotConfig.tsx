@@ -1,94 +1,4 @@
-// "use client";
-
-// import { useState } from "react";
-// import { Button } from "../ui/Button";
-// import ColorInput from "../ui/ColorInput";
-// import Dropdown from "../ui/Dropdown";
-// import Input from "../ui/Input";
-// import ImageUploader from "../ui/ImageUploader";
-
-// function ChatBotConfig() {
-//   const [color, setColor] = useState("#E63A1E");
-//   const [avatarImage, setAvatarImage] = useState<File | null>(null);
-//   const [launcherImage, setLauncherImage] = useState<File | null>(null);
-
-//   const options = [
-//     { value: "option1", label: "Option 1" },
-//     { value: "option2", label: "Option 2" },
-//   ];
-//   return (
-//     <div className="p-10 bg-[#F7F7F7] h-screen flex flex-col gap-2">
-//       <Button className="h-8 w-28">Load Config</Button>
-//       <Input
-//         label="Config Name"
-//         id="config-name"
-//         // value={configName}
-//         // onChange={setConfigName}
-//         // onBlur={() => console.log("Input lost focus")}
-//         placeholder="Enter config name"
-//       />
-//       <Input
-//         label="Bot Name"
-//         id="config-name"
-//         // value={configName}
-//         // onChange={setConfigName}
-//         // onBlur={() => console.log("Input lost focus")}
-//         placeholder="Enter Bot Name"
-//       />
-//       <Dropdown
-//         label="Font Family"
-//         id="my-dropdown"
-//         options={options}
-//         // value={selectedValue}
-//         // onChange={setSelectedValue}
-//       />
-
-//       <ColorInput
-//         label="Header Color"
-//         id="header-color"
-//         // value={color}
-//         // onChange={setColor}
-//         placeholder="Enter color name or hex"
-//       />
-//       <ColorInput
-//         label="Header Font Color"
-//         id="header-color"
-//         // value={color}
-//         // onChange={setColor}
-//         placeholder="Enter color name or hex"
-//       />
-//       <ColorInput
-//         label="Background Color"
-//         id="header-color"
-//         // value={color}
-//         // onChange={setColor}
-//         placeholder="Enter color name or hex"
-//       />
-//       <ColorInput
-//         label="Chat Font Color"
-//         id="header-color"
-//         value={color}
-//         onChange={setColor}
-//         placeholder="Enter color name or hex"
-//       />
-//       <ImageUploader
-//         label="Avatar Image"
-//         id="avatar-image"
-//         imageFile={avatarImage}
-//         onChange={setAvatarImage}
-//       />
-//       <ImageUploader
-//         label="Launcher Image"
-//         id="launcher-image"
-//         imageFile={launcherImage}
-//         onChange={setLauncherImage}
-//       />
-//     </div>
-//   );
-// }
-
-// export default ChatBotConfig;
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Button } from "../ui/Button";
@@ -97,13 +7,68 @@ import Dropdown from "../ui/Dropdown";
 import Input from "../ui/Input";
 import ImageUploader from "../ui/ImageUploader";
 import { useChatBot } from "@/context/chatbot";
+import { useRef } from "react";
 
 function ChatBotConfig() {
   const { config, updateConfig, loadConfig, fontOptions } = useChatBot();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileLoad = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const loadedConfig = JSON.parse(text);
+
+      // Convert base64 strings back to File objects if they exist
+      if (loadedConfig.avatarImage) {
+        const avatarFile = await base64ToFile(
+          loadedConfig.avatarImage,
+          "avatar-image"
+        );
+        loadedConfig.avatarImage = avatarFile;
+      }
+      if (loadedConfig.launcherImage) {
+        const launcherFile = await base64ToFile(
+          loadedConfig.launcherImage,
+          "launcher-image"
+        );
+        loadedConfig.launcherImage = launcherFile;
+      }
+
+      // Update each field individually
+      Object.keys(loadedConfig).forEach((key) => {
+        updateConfig(key as keyof typeof config, loadedConfig[key]);
+      });
+    } catch (error) {
+      console.error("Error loading config:", error);
+    }
+  };
+
+  const base64ToFile = async (
+    base64String: string,
+    filename: string
+  ): Promise<File> => {
+    const response = await fetch(base64String);
+    const blob = await response.blob();
+    return new File([blob], filename, { type: blob.type });
+  };
+
+  const handleLoadClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
     <div className="p-10 bg-[#F7F7F7] h-screen flex flex-col gap-2">
-      <Button className="h-8 w-28" onClick={loadConfig}>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileLoad}
+        accept=".json"
+        className="hidden"
+      />
+      <Button className="h-8 w-28" onClick={handleLoadClick}>
         Load Config
       </Button>
 

@@ -1,8 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { InputHTMLAttributes, useCallback, useState } from "react";
+import React, {
+  InputHTMLAttributes,
+  useCallback,
+  useState,
+  useEffect,
+} from "react";
 import { Upload } from "lucide-react";
 
 interface ImageUploaderProps
@@ -24,6 +28,16 @@ const ImageUploader = ({
   ...props
 }: ImageUploaderProps) => {
   const [preview, setPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(imageFile);
+    }
+  }, [imageFile]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
