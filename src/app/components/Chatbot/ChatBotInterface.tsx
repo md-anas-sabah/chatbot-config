@@ -76,10 +76,7 @@ function ChatBotInterface() {
 
   return (
     <div className="relative">
-      <div
-        className="w-[300px] rounded-lg shadow-lg overflow-hidden"
-        style={{ backgroundColor: config.backgroundColor }}
-      >
+      <div className="w-[350px] rounded-lg shadow-lg overflow-hidden">
         <div
           className="p-3 flex justify-between items-center text-white"
           style={{
@@ -92,7 +89,10 @@ function ChatBotInterface() {
           <X className="w-4 h-4 cursor-pointer" />
         </div>
 
-        <div className="p-3 min-h-[200px] flex gap-3">
+        <div
+          className="p-3 min-h-[270px] flex gap-3"
+          style={{ backgroundColor: config.backgroundColor }}
+        >
           {config.avatarImage ? (
             <img
               src={URL.createObjectURL(config.avatarImage)}
@@ -119,11 +119,11 @@ function ChatBotInterface() {
           </p>
         </div>
 
-        <div className="border-t p-3 flex items-center gap-2">
+        <div className="border-t p-3 flex items-center gap-2 bg-white">
           <input
             type="text"
             placeholder="Need help? Just type or say it"
-            className="flex-1 focus:outline-none text-sm p-1 rounded-sm border-none"
+            className="flex-1 focus:outline-none text-sm p-1  rounded-sm border-none"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
           />

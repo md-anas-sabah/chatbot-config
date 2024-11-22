@@ -68,7 +68,7 @@ function LivePreview() {
     <div className="bg-[#EBE5E0] py-10 h-screen flex flex-col justify-between items-center">
       <div className="text-sm flex items-center gap-2 mb-10">
         <div className="w-2 h-2 rounded-full bg-green-500" />
-        <span className="font-bold">Live Preview</span>
+        <span className="font-bold text-base">Live Preview</span>
       </div>
       <div className="mt-28">
         <ChatBotInterface />

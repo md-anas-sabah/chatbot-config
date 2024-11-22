@@ -58,7 +58,7 @@ function ChatBotConfig() {
   };
 
   return (
-    <div className="p-10 bg-[#F7F7F7] h-screen flex flex-col gap-2">
+    <div className="p-10 bg-[#F7F7F7] h-screen flex flex-col gap-1">
       <input
         type="file"
         ref={fileInputRef}
@@ -66,7 +66,7 @@ function ChatBotConfig() {
         accept=".json"
         className="hidden"
       />
-      <Button className="h-8 w-28" onClick={handleLoadClick}>
+      <Button className="h-8 w-28 -mt-4" onClick={handleLoadClick}>
         Load Config
       </Button>
 
