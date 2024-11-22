@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useState, ReactNode } from "react";
 
 interface ChatBotConfig {
@@ -19,16 +19,16 @@ interface ChatBotContextType {
   config: ChatBotConfig;
   updateConfig: (field: keyof ChatBotConfig, value: any) => void;
   loadConfig: () => void;
-  fontOptions: Array<{ value: string; label: string }>;
+  fontOptions: Array<{ value: string; label: string; fontFamily: string }>;
 }
 
 const defaultConfig: ChatBotConfig = {
   configName: "",
   botName: "",
-  fontFamily: "",
+  fontFamily: "Inter",
   headerColor: "#E63A1E",
   headerFontColor: "#FFFFFF",
-  backgroundColor: "#F7F7F7",
+  backgroundColor: "#FFFFFF",
   chatFontColor: "#000000",
   avatarImage: null,
   launcherImage: null,
@@ -40,10 +40,12 @@ export function ChatBotProvider({ children }: { children: ReactNode }) {
   const [config, setConfig] = useState<ChatBotConfig>(defaultConfig);
 
   const fontOptions = [
-    { value: "arial", label: "Arial" },
-    { value: "roboto", label: "Roboto" },
-    { value: "helvetica", label: "Helvetica" },
-    { value: "openSans", label: "Open Sans" },
+    { value: "inter", label: "Inter", fontFamily: "Inter" },
+    { value: "roboto", label: "Roboto", fontFamily: "Roboto" },
+    { value: "openSans", label: "Open Sans", fontFamily: '"Open Sans"' },
+    { value: "poppins", label: "Poppins", fontFamily: "Poppins" },
+    { value: "lato", label: "Lato", fontFamily: "Lato" },
+    { value: "montserrat", label: "Montserrat", fontFamily: "Montserrat" },
   ];
 
   const updateConfig = (field: keyof ChatBotConfig, value: any) => {
@@ -55,11 +57,18 @@ export function ChatBotProvider({ children }: { children: ReactNode }) {
 
   const loadConfig = async () => {
     try {
-      // Implement your config loading logic here
-      // Example:
-      // const response = await fetch('/api/config');
-      // const loadedConfig = await response.json();
-      // setConfig(loadedConfig);
+      const testConfig = {
+        configName: "Test Config",
+        botName: "Test Bot",
+        fontFamily: "poppins",
+        headerColor: "#FF0000",
+        headerFontColor: "#FFFFFF",
+        backgroundColor: "#F0F0F0",
+        chatFontColor: "#333333",
+        avatarImage: null,
+        launcherImage: null,
+      };
+      setConfig(testConfig);
     } catch (error) {
       console.error("Error loading config:", error);
     }
