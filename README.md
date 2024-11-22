@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chatbot Configurator
 
-## Getting Started
+A Next.js application for customizing and previewing chatbot interfaces with real-time configuration updates.
 
-First, run the development server:
+## Features
 
+- Live preview of chatbot interface
+- Customizable styling options:
+  - Font family selection
+  - Color schemes
+  - Custom avatar and launcher images
+- Speech-to-text functionality
+- Config import/export functionality
+- Responsive design
+- Multiple font options (Inter, Roboto, Open Sans, Poppins, Lato, Montserrat)
+
+## Prerequisites
+
+- Node.js 18.17 or later
+- npm or yarn package manager
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/md-anas-sabah/chatbot-config.git
+cd chatbot-config
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Add required dependencies:
+```bash
+npm install @next/font lucide-react next-themes tailwindcss postcss autoprefixer
+```
+
+## Development
+
+Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/
+│   ├── layout.tsx        
+│   └── page.tsx          
+├   └──components/
+│   ├── Chatbot/
+│   │   ├── ChatBotInterface.tsx
+│   │   └── LivePreview.tsx
+│   └── ChatbotConfig/
+│       └── ChatBotConfig.tsx
+├── context/
+│   └── chatbot.tsx       
+└── public/
+    └── assets/
+        ├── bot.webp
+        └── chat.avif
+```
 
-## Learn More
+## Features Usage
 
-To learn more about Next.js, take a look at the following resources:
+### Config Customization
+- **Bot Name**: Set custom name for the chatbot
+- **Font Family**: Choose from available font options
+- **Colors**: Customize header, background, and font colors
+- **Images**: Upload custom avatar and launcher images
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Speech Recognition
+The chatbot includes speech-to-text functionality:
+1. Click the microphone icon
+2. Speak your message
+3. The text will appear in the input field
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Config Import/Export
+- **Export**: Click "Download Config" to save current settings
+- **Import**: Use "Load Config" to restore saved settings
 
-## Deploy on Vercel
+## Configuration Options
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```typescript
+interface Config {
+  configName: string;
+  botName: string;
+  fontFamily: string;
+  headerColor: string;
+  headerFontColor: string;
+  backgroundColor: string;
+  chatFontColor: string;
+  avatarImage: File | null;
+  launcherImage: File | null;
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
