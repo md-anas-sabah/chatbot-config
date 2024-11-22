@@ -40,12 +40,20 @@ export function ChatBotProvider({ children }: { children: ReactNode }) {
   const [config, setConfig] = useState<ChatBotConfig>(defaultConfig);
 
   const fontOptions = [
-    { value: "inter", label: "Inter", fontFamily: "Inter" },
-    { value: "roboto", label: "Roboto", fontFamily: "Roboto" },
-    { value: "openSans", label: "Open Sans", fontFamily: '"Open Sans"' },
-    { value: "poppins", label: "Poppins", fontFamily: "Poppins" },
-    { value: "lato", label: "Lato", fontFamily: "Lato" },
-    { value: "montserrat", label: "Montserrat", fontFamily: "Montserrat" },
+    { value: "inter", label: "Inter", fontFamily: "var(--font-inter)" },
+    { value: "roboto", label: "Roboto", fontFamily: "var(--font-roboto)" },
+    {
+      value: "openSans",
+      label: "Open Sans",
+      fontFamily: "var(--font-open-sans)",
+    },
+    { value: "poppins", label: "Poppins", fontFamily: "var(--font-poppins)" },
+    { value: "lato", label: "Lato", fontFamily: "var(--font-lato)" },
+    {
+      value: "montserrat",
+      label: "Montserrat",
+      fontFamily: "var(--font-montserrat)",
+    },
   ];
 
   const updateConfig = (field: keyof ChatBotConfig, value: any) => {

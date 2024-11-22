@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import {
+  Inter,
+  Roboto,
+  Open_Sans,
+  Poppins,
+  Lato,
+  Montserrat,
+} from "next/font/google";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -7,23 +15,43 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
 
-export const metadata = {
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-roboto",
+});
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-open-sans",
+});
+const poppins = Poppins({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-poppins",
+});
+const lato = Lato({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-lato",
+});
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
+
+export const metadata: Metadata = {
   title: "Chatbot Config",
   description: "Your app description",
-  head: [
-    {
-      type: "link",
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&family=Poppins:wght@400;500;600&family=Lato:wght@400;700&family=Montserrat:wght@400;500;600&family=Source+Code+Pro:wght@400;500&family=Playfair+Display:wght@400;500&display=swap",
-    },
-  ],
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${roboto.variable} ${openSans.variable} ${poppins.variable} ${lato.variable} ${montserrat.variable} antialiased`}
       >
         {children}
       </body>
