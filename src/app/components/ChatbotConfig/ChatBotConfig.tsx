@@ -21,7 +21,6 @@ function ChatBotConfig() {
       const text = await file.text();
       const loadedConfig = JSON.parse(text);
 
-      // Convert base64 strings back to File objects if they exist
       if (loadedConfig.avatarImage) {
         const avatarFile = await base64ToFile(
           loadedConfig.avatarImage,
@@ -37,7 +36,6 @@ function ChatBotConfig() {
         loadedConfig.launcherImage = launcherFile;
       }
 
-      // Update each field individually
       Object.keys(loadedConfig).forEach((key) => {
         updateConfig(key as keyof typeof config, loadedConfig[key]);
       });
