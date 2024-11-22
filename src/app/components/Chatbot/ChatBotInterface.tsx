@@ -7,6 +7,36 @@ import bot from "@/assets/bot.webp";
 import { useChatBot } from "@/context/chatbot";
 import { useState } from "react";
 
+declare global {
+  interface Window {
+    webkitSpeechRecognition: new () => SpeechRecognition;
+  }
+}
+
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  onstart: (event: Event) => void;
+  onresult: (event: SpeechRecognitionEvent) => void;
+  onerror: (event: SpeechRecognitionError) => void;
+  onend: () => void;
+  start: () => void;
+}
+
+interface SpeechRecognitionEvent {
+  results: {
+    [key: number]: {
+      [key: number]: {
+        transcript: string;
+      };
+    };
+  };
+}
+
+interface SpeechRecognitionError extends Event {
+  error: string;
+}
+
 function ChatBotInterface() {
   const { config } = useChatBot();
   const [inputText, setInputText] = useState("");
