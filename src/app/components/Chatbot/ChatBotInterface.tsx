@@ -5,11 +5,44 @@ import Image from "next/image";
 import chat from "@/assets/chat.avif";
 import bot from "@/assets/bot.webp";
 import { useChatBot } from "@/context/chatbot";
+import { useState } from "react";
 
 function ChatBotInterface() {
   const { config } = useChatBot();
+  const [inputText, setInputText] = useState("");
+  const [isListening, setIsListening] = useState(false);
 
   const selectedFont = config.fontFamily || "Inter";
+
+  const startListening = () => {
+    if ("webkitSpeechRecognition" in window) {
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInputText(transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } else {
+      alert("Speech recognition is not supported in your browser.");
+    }
+  };
 
   return (
     <div className="relative">
@@ -61,12 +94,15 @@ function ChatBotInterface() {
             type="text"
             placeholder="Need help? Just type or say it"
             className="flex-1 focus:outline-none text-sm p-1 rounded-sm border-none"
-            // style={{
-            //   fontFamily: selectedFont,
-            //   color: config.chatFontColor,
-            // }}
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
           />
-          <Mic className="w-4 h-4 text-gray-400 cursor-pointer" />
+          <Mic
+            className={`w-4 h-4 cursor-pointer ${
+              isListening ? "text-red-500" : "text-gray-400"
+            }`}
+            onClick={startListening}
+          />
         </div>
       </div>
 
