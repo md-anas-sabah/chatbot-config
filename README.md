@@ -1,6 +1,6 @@
 # Chatbot Configurator
 
-A Next.js application for customizing and previewing chatbot interfaces with real-time configuration updates.
+A Next.js application for customizing and previewing chatbot interfaces with real-time configuration update.
 
 ## Features
 
